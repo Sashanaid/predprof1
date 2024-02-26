@@ -1,17 +1,17 @@
-import csv
+import csv  #подключаем библиотеку csv
 
 s=0
-with open('products.csv', encoding='utf8') as file:
+with open('products.csv', encoding='utf8') as file:  #считываем фаил
     reader=csv.reader(file, delimiter=';')
     d=[]
-    for Category, product, Date, Price, Count in reader:
+    for Category, product, Date, Price, Count in reader:        #содаём список и проходимся по файлу за исключением первой строки
         if Category != 'Category':
-            d.append([Category, product, Date, Price, Count, int(float(Price)*float(Count))])
+            d.append([Category, product, Date, Price, Count, int(float(Price)*float(Count))])        #добавляем в список строку из файла и последним элементом дабавляем выручкку по этому продукту
             if Category == 'Закуски':
-                s=s+float(Price)*float(Count)
+                s=s+float(Price)*float(Count)            #считаем выручку по категории закуски
     print(int(s))
 
-with open('product_new.csv', 'w', encoding='utf8') as file :
+with open('product_new.csv', 'w', encoding='utf8') as file :            #создаём новый фаил с новым столбцом
     writer=csv.writer(file, delimiter=';')
     writer.writerow(['Category','product','Date','Price per unit','Count','Total'])
     writer.writerows(d)
