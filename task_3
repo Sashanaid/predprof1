@@ -1,19 +1,19 @@
-import csv
+import csv                    #подключаем csv
 count=9999999.0
-with open('products.csv', encoding='utf8') as file:
+with open('products.csv', encoding='utf8') as file:        #считыаем файл
     reader=csv.reader(file, delimiter=';')
     c=0
-    while True :
-        s=input()
+    while True :                                        #создаём бесконечный цикл который будет искать запрошенную категорию
+        s=input()                                       #запрашиваем категорию
         m=None
-        if s == 'молоко':
+        if s == 'молоко':                               #прописываем условия остановки
             break
-        for Category, product, Date, Price, Count in reader:
+        for Category, product, Date, Price, Count in reader:            #ищем заданную категорию с минимальным количеством проданных штук
             if Category == s:
                 if float(Count)<count:
                     m=[Category, product, Date, Price, Count]
                     count=float(Count)
-        if m!=None:
+        if m!=None:                                                        #если такая категория не нашлась
             print(f"В категории: {m[0]} товар: {m[1]} был куплен {m[-1]}")
-        else:
+        else:                                                              #если нашлась
             print('Такой категории не существует в нашей БД')
