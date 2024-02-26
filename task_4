@@ -1,18 +1,18 @@
-import csv
+import csv        #подключаем csv
 
-def promo_gen(product, Date):
+def promo_gen(product, Date):                #создаём промо код
     promo=product[:2]+Date[:2]+product[-1]+product[-2]+Date[4]+Date[3]
     return promo
 
 s=0
-with open('products.csv', encoding='utf8') as file:
+with open('products.csv', encoding='utf8') as file:            #считываем файл
     reader=csv.reader(file, delimiter=';')
     d=[]
-    for Category, product, Date, Price, Count in reader:
+    for Category, product, Date, Price, Count in reader:           #исключая первую строку добовляем в строку элемент: промокод
         if Category != 'Category':
-            d.append([Category, product, Date, Price, Count, promo_gen(product, Date)])
+            d.append([Category, product, Date, Price, Count, promo_gen(product, Date)])    #добавляем в список строку и промокод
 
-with open('product_promo.csv', 'w', encoding='utf8') as file :
+with open('product_promo.csv', 'w', encoding='utf8') as file :            #создаём новый файл
     writer=csv.writer(file, delimiter=';')
     writer.writerow(['Category','product','Date','Price per unit','Count','Promo'])
     writer.writerows(d)
