@@ -1,0 +1,19 @@
+import csv
+count=9999999.0
+with open('products.csv', encoding='utf8') as file:
+    reader=csv.reader(file, delimiter=';')
+    c=0
+    while True :
+        s=input()
+        m=None
+        if s == 'молоко':
+            break
+        for Category, product, Date, Price, Count in reader:
+            if Category == s:
+                if float(Count)<count:
+                    m=[Category, product, Date, Price, Count]
+                    count=float(Count)
+        if m!=None:
+            print(f"В категории: {m[0]} товар: {m[1]} был куплен {m[-1]}")
+        else:
+            print('Такой категории не существует в нашей БД')
