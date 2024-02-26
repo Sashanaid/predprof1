@@ -1,0 +1,17 @@
+import csv                #подключаем библиотеку csv 
+
+
+with open('products.csv', encoding='utf8') as file:        #открываем фаил 
+    reader=csv.reader(file, delimiter=';')             
+    d=[]
+    d1=[]
+    for Category, product, Date, Price, Count in reader:
+        d.append([Category, Count])              #создаём список для перенесения данных в новый фаил
+        d1.append([Count, Category])             #создаём второй список для поиска наименьши продаж
+    d1=sorted(d1)
+    for i in range(10):
+        print(*d1[i])                            #сортируем и выводим категории с наименьшими продажами
+
+with open('product_count.csv', 'w', encoding='utf8') as file:        #создаём новый фаил и заполняем его
+    writer = csv.writer(file, delimiter=';')
+    writer.writerows(d)
